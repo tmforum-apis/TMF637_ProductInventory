@@ -1,0 +1,1713 @@
+
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "##TMF API Reference : TMF 637 - Product Inventory Management\n\n##Release : 18.0 - May 2018\n\nThe Product Inventory Management API provides standardized mechanism for product inventory management such as creation, update and retrieval of the representation of a product in the inventory. It also allows the notification of events related to product lifecycle\n\n###Product resource\nA product offering procured by a customer or other interested party playing a party role. A product is realized as one or more service(s) and / or resource(s).\n\n###Product Inventory API performs the following operations on product :\n- Retrieval of a product or a collection of products depending on filter criteria\n- Partial update of a product (including updating rules and for administration purpose)\n- Creation of a product (including default values and creation rules and for administration purpose)\n- Deletion of a product (for administration purposes)\n- Notification of events on product.\n\nCopyright © TM Forum 2017. All Rights Reserved",
+    "version": "3.0.0_inProgress",
+    "title": "API ProductInventory",
+    "x-logo": {
+      "url": "/redoc/logo.png",
+      "backgroundColor": "#FFFFFF"
+    }
+  },
+  
+  "host": "serverRoot",
+  "basePath":	"/tmf-api/productInventory/v3/",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json;charset=utf-8"
+  ],
+  "produces": [
+    "application/json;charset=utf-8"
+  ],
+  "tags": [
+  
+    {
+      "name": "Product",
+      "description": ""
+    },
+    {
+      "name": "Hub",
+      "description": "HUB resource is used to allows API event subscription."
+    }
+  ],
+  "paths": {
+      "/product": {
+      "post": {
+        "tags": [
+           "Product"
+        ],        
+        "operationId": "productCreate",
+        "summary": "Create a product",
+        "description": "This operation creates a product entity. This operation is available only to ADMIN API users.\nMandatory and non mandatory attributes and additionnal rules are provided in the specifications document.\n\nSpecific business errors for current operation will be encapsulated in\n\nHTTP Response 422 Unprocessable entity\n",
+        "deprecated": false,
+        
+        "parameters": [
+          
+          {
+            "name": "Product",
+            "required": true,
+            "in": "body",
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+
+          },
+          "400": {
+            
+            "description": "Bad Request\n\nList of supported error codes:\n- 20: Invalid URL parameter value\n- 21: Missing body\n- 22: Invalid body\n- 23: Missing body field\n- 24: Invalid body field\n- 25: Missing header\n- 26: Invalid header value\n- 27: Missing query-string parameter\n- 28: Invalid query-string parameter value",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "404": {
+            
+            "description": "Not Found\n\nList of supported error codes:\n- 60: Resource not found",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "405": {
+            
+            "description": "Method Not Allowed\n\nList of supported error codes:\n- 61: Method not allowed",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "409": {
+            
+            "description": "Conflict\n\nThe request could not be completed due to a conflict with the current state of the target resource.",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "422": {
+            
+            "description": "Unprocessable entity\n\nFunctional error",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "500": {
+            
+            "description": "Internal Server Error\n\nList of supported error codes:\n- 1: Internal error",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+           "Product"
+        ],        
+        "operationId": "productFind",
+        "summary": "List products",
+        "description": "This operation list product entities.\nAttribute selection is enabled for all first level attributes.\nFiltering may be available depending on the compliance level supported by an implementation.\n\nSpecific business errors for current operation will be encapsulated in\n\nHTTP Response 422 Unprocessable entity\n",
+        "deprecated": false,
+        
+        "parameters": [
+          
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "description": "Attributes selection",
+            
+              "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+              "$ref": "#/definitions/Product"
+              }
+            }
+
+          },
+          "400": {
+            
+            "description": "Bad Request\n\nList of supported error codes:\n- 20: Invalid URL parameter value\n- 21: Missing body\n- 22: Invalid body\n- 23: Missing body field\n- 24: Invalid body field\n- 25: Missing header\n- 26: Invalid header value\n- 27: Missing query-string parameter\n- 28: Invalid query-string parameter value",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "404": {
+            
+            "description": "Not Found\n\nList of supported error codes:\n- 60: Resource not found",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "405": {
+            
+            "description": "Method Not Allowed\n\nList of supported error codes:\n- 61: Method not allowed",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "409": {
+            
+            "description": "Conflict\n\nThe request could not be completed due to a conflict with the current state of the target resource.",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "422": {
+            
+            "description": "Unprocessable entity\n\nFunctional error",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "500": {
+            
+            "description": "Internal Server Error\n\nList of supported error codes:\n- 1: Internal error",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          }
+        }
+      }
+    },
+      "/product/{productId}": {
+      "get": {
+        "tags": [
+           "Product"
+        ],        
+        "operationId": "productGet",
+        "summary": "Retrieve product",
+        "description": "This operation retrieves a product entity.\nAttribute selection is enabled for all first level attributes.\nFiltering on sub-resources may be available depending on the compliance level supported by an implementation.\n\nSpecific business errors for current operation will be encapsulated in\n\nHTTP Response 422 Unprocessable entity\n",
+        "deprecated": false,
+        
+        "parameters": [
+          
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "description": "Attributes selection",
+            
+              "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+
+          },
+          "400": {
+            
+            "description": "Bad Request\n\nList of supported error codes:\n- 20: Invalid URL parameter value\n- 21: Missing body\n- 22: Invalid body\n- 23: Missing body field\n- 24: Invalid body field\n- 25: Missing header\n- 26: Invalid header value\n- 27: Missing query-string parameter\n- 28: Invalid query-string parameter value",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "404": {
+            
+            "description": "Not Found\n\nList of supported error codes:\n- 60: Resource not found",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "405": {
+            
+            "description": "Method Not Allowed\n\nList of supported error codes:\n- 61: Method not allowed",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "409": {
+            
+            "description": "Conflict\n\nThe request could not be completed due to a conflict with the current state of the target resource.",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "422": {
+            
+            "description": "Unprocessable entity\n\nFunctional error",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "500": {
+            
+            "description": "Internal Server Error\n\nList of supported error codes:\n- 1: Internal error",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+           "Product"
+        ],        
+        "operationId": "productPatch",
+        "summary": "Patch a product",
+        "description": "This operation allows partial updates of a product entity. This operation is available only to ADMIN API users.\nSupport of json/merge (https://tools.ietf.org/html/rfc7386) is mandatory, support of json/patch (http://tools.ietf.org/html/rfc5789) is optional.\nPatchable and not patchable attributes are provided in the specifications document.\n\nSpecific business errors for current operation will be encapsulated in\n\nHTTP Response 422 Unprocessable entity\n",
+        "deprecated": false,
+        
+        "parameters": [
+          
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Product",
+            "required": true,
+            "in": "body",
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+
+          },
+          "400": {
+            
+            "description": "Bad Request\n\nList of supported error codes:\n- 20: Invalid URL parameter value\n- 21: Missing body\n- 22: Invalid body\n- 23: Missing body field\n- 24: Invalid body field\n- 25: Missing header\n- 26: Invalid header value\n- 27: Missing query-string parameter\n- 28: Invalid query-string parameter value",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "404": {
+            
+            "description": "Not Found\n\nList of supported error codes:\n- 60: Resource not found",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "405": {
+            
+            "description": "Method Not Allowed\n\nList of supported error codes:\n- 61: Method not allowed",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "409": {
+            
+            "description": "Conflict\n\nThe request could not be completed due to a conflict with the current state of the target resource.",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "422": {
+            
+            "description": "Unprocessable entity\n\nFunctional error",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "500": {
+            
+            "description": "Internal Server Error\n\nList of supported error codes:\n- 1: Internal error",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+           "Product"
+        ],        
+        "operationId": "productDelete",
+        "summary": "Delete a product",
+        "description": "This operation deletes a product entity. This operation is available only to ADMIN API users\n\nSpecific business errors for current operation will be encapsulated in\n\nHTTP Response 422 Unprocessable entity\n",
+        "deprecated": false,
+        
+        "parameters": [
+          
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+
+          },
+          "400": {
+            
+            "description": "Bad Request\n\nList of supported error codes:\n- 20: Invalid URL parameter value\n- 21: Missing body\n- 22: Invalid body\n- 23: Missing body field\n- 24: Invalid body field\n- 25: Missing header\n- 26: Invalid header value\n- 27: Missing query-string parameter\n- 28: Invalid query-string parameter value",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "404": {
+            
+            "description": "Not Found\n\nList of supported error codes:\n- 60: Resource not found",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "405": {
+            
+            "description": "Method Not Allowed\n\nList of supported error codes:\n- 61: Method not allowed",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "409": {
+            
+            "description": "Conflict\n\nThe request could not be completed due to a conflict with the current state of the target resource.",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "422": {
+            
+            "description": "Unprocessable entity\n\nFunctional error",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "500": {
+            
+            "description": "Internal Server Error\n\nList of supported error codes:\n- 1: Internal error",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          }
+        }
+      }
+    },
+      "/hub": {
+      "post": {
+        "tags": [
+           "Hub"
+        ],        
+        "operationId": "hubCreate",
+        "summary": "createHub",
+        "description": "Create Hub\n\nSpecific business errors for current operation will be encapsulated in\n\nHTTP Response 422 Unprocessable entity\n",
+        "deprecated": false,
+        
+        "parameters": [
+          
+          {
+            "name": "Hub",
+            "required": true,
+            "in": "body",
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/HubInput"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Hub"
+            }
+
+          },
+          "400": {
+            
+            "description": "Bad Request\n\nList of supported error codes:\n- 20: Invalid URL parameter value\n- 21: Missing body\n- 22: Invalid body\n- 23: Missing body field\n- 24: Invalid body field\n- 25: Missing header\n- 26: Invalid header value\n- 27: Missing query-string parameter\n- 28: Invalid query-string parameter value",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "404": {
+            
+            "description": "Not Found\n\nList of supported error codes:\n- 60: Resource not found",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "405": {
+            
+            "description": "Method Not Allowed\n\nList of supported error codes:\n- 61: Method not allowed",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "409": {
+            
+            "description": "Conflict\n\nThe request could not be completed due to a conflict with the current state of the target resource.",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "422": {
+            
+            "description": "Unprocessable entity\n\nFunctional error",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "500": {
+            
+            "description": "Internal Server Error\n\nList of supported error codes:\n- 1: Internal error",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+           "Hub"
+        ],        
+        "operationId": "hubFind",
+        "summary": "find hub",
+        "description": "\n\nSpecific business errors for current operation will be encapsulated in\n\nHTTP Response 422 Unprocessable entity\n",
+        "deprecated": false,
+        
+        "parameters": [
+          
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "description": "",
+            
+              "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+              "$ref": "#/definitions/Hub"
+              }
+            }
+
+          },
+          "400": {
+            
+            "description": "Bad Request\n\nList of supported error codes:\n- 20: Invalid URL parameter value\n- 21: Missing body\n- 22: Invalid body\n- 23: Missing body field\n- 24: Invalid body field\n- 25: Missing header\n- 26: Invalid header value\n- 27: Missing query-string parameter\n- 28: Invalid query-string parameter value",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "404": {
+            
+            "description": "Not Found\n\nList of supported error codes:\n- 60: Resource not found",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "405": {
+            
+            "description": "Method Not Allowed\n\nList of supported error codes:\n- 61: Method not allowed",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "409": {
+            
+            "description": "Conflict\n\nThe request could not be completed due to a conflict with the current state of the target resource.",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "422": {
+            
+            "description": "Unprocessable entity\n\nFunctional error",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "500": {
+            
+            "description": "Internal Server Error\n\nList of supported error codes:\n- 1: Internal error",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          }
+        }
+      }
+    },
+      "/hub/{hubId}": {
+      "get": {
+        "tags": [
+           "Hub"
+        ],        
+        "operationId": "hubGet",
+        "summary": "get hub",
+        "description": "\n\nSpecific business errors for current operation will be encapsulated in\n\nHTTP Response 422 Unprocessable entity\n",
+        "deprecated": false,
+        
+        "parameters": [
+          
+          {
+            "name": "hubId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "fields",
+            "required": false,
+            "in": "query",
+            "description": "",
+            
+              "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Hub"
+            }
+
+          },
+          "400": {
+            
+            "description": "Bad Request\n\nList of supported error codes:\n- 20: Invalid URL parameter value\n- 21: Missing body\n- 22: Invalid body\n- 23: Missing body field\n- 24: Invalid body field\n- 25: Missing header\n- 26: Invalid header value\n- 27: Missing query-string parameter\n- 28: Invalid query-string parameter value",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "404": {
+            
+            "description": "Not Found\n\nList of supported error codes:\n- 60: Resource not found",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "405": {
+            
+            "description": "Method Not Allowed\n\nList of supported error codes:\n- 61: Method not allowed",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "409": {
+            
+            "description": "Conflict\n\nThe request could not be completed due to a conflict with the current state of the target resource.",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "422": {
+            
+            "description": "Unprocessable entity\n\nFunctional error",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "500": {
+            
+            "description": "Internal Server Error\n\nList of supported error codes:\n- 1: Internal error",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+           "Hub"
+        ],        
+        "operationId": "hubPatch",
+        "summary": "patch hub",
+        "description": "\n\nSpecific business errors for current operation will be encapsulated in\n\nHTTP Response 422 Unprocessable entity\n",
+        "deprecated": false,
+        
+        "parameters": [
+          
+          {
+            "name": "hubId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Hub",
+            "required": true,
+            "in": "body",
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Hub"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Hub"
+            }
+
+          },
+          "400": {
+            
+            "description": "Bad Request\n\nList of supported error codes:\n- 20: Invalid URL parameter value\n- 21: Missing body\n- 22: Invalid body\n- 23: Missing body field\n- 24: Invalid body field\n- 25: Missing header\n- 26: Invalid header value\n- 27: Missing query-string parameter\n- 28: Invalid query-string parameter value",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "404": {
+            
+            "description": "Not Found\n\nList of supported error codes:\n- 60: Resource not found",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "405": {
+            
+            "description": "Method Not Allowed\n\nList of supported error codes:\n- 61: Method not allowed",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "409": {
+            
+            "description": "Conflict\n\nThe request could not be completed due to a conflict with the current state of the target resource.",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "422": {
+            
+            "description": "Unprocessable entity\n\nFunctional error",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "500": {
+            
+            "description": "Internal Server Error\n\nList of supported error codes:\n- 1: Internal error",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+           "Hub"
+        ],        
+        "operationId": "hubDelete",
+        "summary": "delete hub",
+        "description": "\n\nSpecific business errors for current operation will be encapsulated in\n\nHTTP Response 422 Unprocessable entity\n",
+        "deprecated": false,
+        
+        "parameters": [
+          
+          {
+            "name": "hubId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+
+          },
+          "400": {
+            
+            "description": "Bad Request\n\nList of supported error codes:\n- 20: Invalid URL parameter value\n- 21: Missing body\n- 22: Invalid body\n- 23: Missing body field\n- 24: Invalid body field\n- 25: Missing header\n- 26: Invalid header value\n- 27: Missing query-string parameter\n- 28: Invalid query-string parameter value",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "404": {
+            
+            "description": "Not Found\n\nList of supported error codes:\n- 60: Resource not found",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "405": {
+            
+            "description": "Method Not Allowed\n\nList of supported error codes:\n- 61: Method not allowed",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "409": {
+            
+            "description": "Conflict\n\nThe request could not be completed due to a conflict with the current state of the target resource.",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "422": {
+            
+            "description": "Unprocessable entity\n\nFunctional error",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          },
+          "500": {
+            
+            "description": "Internal Server Error\n\nList of supported error codes:\n- 1: Internal error",
+            "schema": {
+            
+              "$ref": "#/definitions/ErrorRepresentation"
+            }
+          }
+        }
+      }
+    }
+  },
+"definitions": {
+  
+    "StatusType": {
+      "description": "",
+      
+      "type": "string",
+      "enum": [
+  	          "created",
+  	          "pendingActive",
+  	          "cancelled",
+  	          "active",
+  	          "pendingTerminate",
+  	          "terminated",
+  	          "suspended",
+  	          "aborted"]
+      
+    },
+
+    "ErrorRepresentation": {
+      "description": "Error Representation",
+
+      
+      "required": [
+          
+            "code",
+            "reason"
+      ],
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "",
+              "type": "integer",
+              "format": "int32"
+        },
+        "reason": {
+          "description": "",
+              "type": "string"
+        },
+        "message": {
+          "description": "",
+              "type": "string"
+        },
+        "status": {
+          "description": "",
+              "type": "string"
+        },
+        "referenceError": {
+          "description": "",
+              "type": "string"
+        },
+        "@type": {
+          "description": "",
+              "type": "string"
+        },
+        "@schemaLocation": {
+          "description": "",
+              "type": "string"
+        }
+      }
+      
+    },
+
+    "Product": {
+      "description": "A Product represents the subscription of a ProductOffering by a Party playing a PartyRole, such as a Customer.  For example, Jean has subscribed to company ABC’s internet ProductOffering.\nThe association between ProductSpecification and Product allows ProductSpecification, to be instantiated as Product and related to customers or other involved parties.",
+
+      
+      "required": [
+          
+            "id"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier of the product",
+              "type": "string"
+        },
+        "href": {
+          "description": "Reference of the product",
+              "type": "string"
+        },
+        "description": {
+          "description": "The description of the product. It could be copied from the description of the Product Offering.",
+              "type": "string"
+        },
+        "isBundle": {
+          "description": "If true, the product is a ProductBundle which is an instantiation of a BundledProductOffering. If false, the product is a ProductComponent which is an instantiation of a SimpleProductOffering",
+              "type": "boolean"
+        },
+        "isCustomerVisible": {
+          "description": "If true, the product is visible by the customer",
+              "type": "boolean"
+        },
+        "name": {
+          "description": "The name of the product. It could be the same as the name of the Product Offering",
+              "type": "string"
+        },
+        "productSerialNumber": {
+          "description": "Serial number for the product. This is typically applicable to tangible products e.g. Broadband Router.",
+              "type": "string"
+        },
+        "startDate": {
+          "description": "The date from which the product starts",
+              "type": "string",
+              "format": "date-time"
+        },
+        "status": {
+          
+           "$ref": "#/definitions/StatusType"
+        },
+        "terminationDate": {
+          "description": "The date when the product was terminated. Not applicable to active products",
+              "type": "string",
+              "format": "date-time"
+        },
+        "@baseType": {
+          "description": "Indicates the base type of the resource. Here can be 'Product'",
+              "type": "string"
+        },
+        "@type": {
+          "description": "Indicated the type of resource.",
+              "type": "string"
+        },
+        "@schemaLocation": {
+          "description": "A link to the schema describing this REST resource.",
+              "type": "string"
+        },
+        "place": {
+          
+          "type": "array",
+          "items": {
+              "$ref": "#/definitions/Place"
+          }
+        },
+        "productOffering": {
+          
+              "$ref": "#/definitions/ProductOfferingRef"
+        },
+        "productSpecification": {
+          
+              "$ref": "#/definitions/ProductSpecification"
+        },
+        "characteristic": {
+          
+          "type": "array",
+          "items": {
+              "$ref": "#/definitions/ProductCharacteristic"
+          }
+        },
+        "productRelationship": {
+          
+          "type": "array",
+          "items": {
+              "$ref": "#/definitions/ProductRelationship"
+          }
+        },
+        "billingAccount": {
+          
+          "type": "array",
+          "items": {
+              "$ref": "#/definitions/BillingAccountRef"
+          }
+        },
+        "relatedParty": {
+          
+          "type": "array",
+          "items": {
+              "$ref": "#/definitions/RelatedParty"
+          }
+        },
+        "realizingResource": {
+          
+          "type": "array",
+          "items": {
+              "$ref": "#/definitions/RealizingResource"
+          }
+        },
+        "realizingService": {
+          
+          "type": "array",
+          "items": {
+              "$ref": "#/definitions/RealizingService"
+          }
+        },
+        "productPrice": {
+          
+          "type": "array",
+          "items": {
+              "$ref": "#/definitions/ProductPrice"
+          }
+        },
+        "productOrder": {
+          
+          "type": "array",
+          "items": {
+              "$ref": "#/definitions/ProductOrderRef"
+          }
+        },
+        "productTerm": {
+          
+          "type": "array",
+          "items": {
+              "$ref": "#/definitions/ProductTerm"
+          }
+        }
+      }
+      
+    },
+
+    "ProductOfferingRef": {
+      "description": "ProductOffering reference. A product offering represents entities that are orderable from the provider of the catalog, this resource includes pricing information.",
+
+      
+      "required": [
+          
+            "id"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier of the product offering",
+              "type": "string"
+        },
+        "href": {
+          "description": "Reference of the product offering",
+              "type": "string"
+        },
+        "name": {
+          "description": "Name of the product offering",
+              "type": "string"
+        },
+        "@referredType": {
+          "description": "Type (class) of the product offering",
+              "type": "string"
+        }
+      }
+      
+    },
+
+    "ProductSpecification": {
+      "description": "A ProductSpecification is a detailed description of a tangible or intangible object made available externally in the form of a ProductOffering to customers or other parties playing a party role.",
+
+      
+      "required": [
+          
+            "id"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier of the product specification",
+              "type": "string"
+        },
+        "href": {
+          "description": "Reference of the product specification",
+              "type": "string"
+        },
+        "version": {
+          "description": "Version of the product specification",
+              "type": "string"
+        },
+        "name": {
+          "description": "Name of the product specification",
+              "type": "string"
+        },
+        "@referredType": {
+          "description": "Indicate the productSpecification type class",
+              "type": "string"
+        },
+        "describing": {
+          
+              "$ref": "#/definitions/TargetResourceSchema"
+        }
+      }
+      
+    },
+
+    "ProductCharacteristic": {
+      "description": "Characteristics of the product to instantiate or to modify.",
+
+      
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of the characteristic",
+              "type": "string"
+        },
+        "value": {
+          "description": "Value of the characteristic",
+              "type": "string"
+        },
+        "@type": {
+          "description": "Indicates the (class) type of resource",
+              "type": "string"
+        },
+        "@schemaLocation": {
+          "description": "This field provided a link to the schema describing this REST resource.",
+              "type": "string"
+        }
+      }
+      
+    },
+
+    "ProductRelationship": {
+      "description": "Type of the product relationship. it can be 'bundled' if the product is a bundle and you want to describe the 'bundled' products inside this bundle, 'reliesOn' if the product needs another already owned product to rely on \n(e.g. an option on an already owned mobile access product) or 'targets' or 'isTargeted' (depending on the way of expressing the link) for any other kind of links that may be useful",
+
+      
+      "required": [
+          
+            "product"
+      ],
+      "type": "object",
+      "properties": {
+        "type": {
+          "description": "Type of the product relationship",
+              "type": "string"
+        },
+        "product": {
+          
+              "$ref": "#/definitions/ProductRef"
+        }
+      }
+      
+    },
+
+    "BillingAccountRef": {
+      "description": "A BillingAccount is a detailed description of a bill structure",
+
+      
+      "required": [
+          
+            "id"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identier of the billing account",
+              "type": "string"
+        },
+        "href": {
+          "description": "Reference of the billing account",
+              "type": "string"
+        },
+        "name": {
+          "description": "Name of the billing account",
+              "type": "string"
+        },
+        "@referredType": {
+          "description": "Indicates the (class) type of the billing account",
+              "type": "string"
+        }
+      }
+      
+    },
+
+    "RelatedParty": {
+      "description": "The party which the product is related with.",
+
+      
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier of the related party",
+              "type": "string"
+        },
+        "href": {
+          "description": "Reference of the related party",
+              "type": "string"
+        },
+        "name": {
+          "description": "Name of the related party",
+              "type": "string"
+        },
+        "role": {
+          "description": "Role played by the related party",
+              "type": "string"
+        },
+        "validFor": {
+          
+              "$ref": "#/definitions/TimePeriod"
+        },
+        "@referredType": {
+          "description": "Indicates the (class) type of party",
+              "type": "string"
+        }
+      }
+      
+    },
+
+    "RealizingResource": {
+      "description": "RealizingResource reference. RealizingResource is a link to the resource that realizes the product.",
+
+      
+      "required": [
+          
+            "id"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier of the resource",
+              "type": "string"
+        },
+        "href": {
+          "description": "Reference of the resource",
+              "type": "string"
+        },
+        "name": {
+          "description": "Name of the resource.",
+              "type": "string"
+        },
+        "role": {
+          "description": "Role of the resource",
+              "type": "string"
+        },
+        "@referredType": {
+          "description": "Indicate the class (type) of the realizing resource",
+              "type": "string"
+        }
+      }
+      
+    },
+
+    "RealizingService": {
+      "description": "RealizingService reference. RealizingService is a link to the service that realizes the product.",
+
+      
+      "required": [
+          
+            "id"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier of the service",
+              "type": "string"
+        },
+        "href": {
+          "description": "Reference of the service",
+              "type": "string"
+        },
+        "name": {
+          "description": "Name of the service",
+              "type": "string"
+        },
+        "role": {
+          "description": "Role of the realizing service",
+              "type": "string"
+        },
+        "@referredType": {
+          "description": "Indicate the class (type) of the realizing service.",
+              "type": "string"
+        }
+      }
+      
+    },
+
+    "ProductPrice": {
+      "description": "An amount, usually of money, that represents the actual price paid by a Customer for a purchase, a rent or a lease of a Product. The price is valid for a defined period of time.",
+
+      
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier of a productOfferingPrice",
+              "type": "string"
+        },
+        "name": {
+          "description": "A short descriptive name such as \"Subscription price\"",
+              "type": "string"
+        },
+        "description": {
+          "description": "A narrative that explains in detail the semantics of this product price",
+              "type": "string"
+        },
+        "priceType": {
+          "description": "A category that describes the price, such as recurring, discount, allowance, penalty, and so forth",
+              "type": "string"
+        },
+        "recurringChargePeriod": {
+          "description": "Could be month, week...",
+              "type": "string"
+        },
+        "unitOfMeasure": {
+          "description": "Could be minutes, GB...",
+              "type": "string"
+        },
+        "@type": {
+          "description": "Indicates the type of ProductPrice class",
+              "type": "string"
+        },
+        "@schemaLocation": {
+          "description": "A link to the schema describing this REST resource",
+              "type": "string"
+        },
+        "price": {
+          
+              "$ref": "#/definitions/Price"
+        },
+        "prodPriceAlteration": {
+          
+              "$ref": "#/definitions/PriceAlteration"
+        },
+        "billingAccount": {
+          
+              "$ref": "#/definitions/BillingAccountRef"
+        }
+      }
+      
+    },
+
+    "Price": {
+      "description": "Provides all amounts (tax included, duty free, tax rate), used currency and percentage applied for price and price alteration",
+
+      
+      "type": "object",
+      "properties": {
+        "taxIncludedAmount": {
+          
+              "$ref": "#/definitions/Money"
+        },
+        "dutyFreeAmount": {
+          
+              "$ref": "#/definitions/Money"
+        },
+        "percentage": {
+          "description": "Percentage applied",
+              "type": "number",
+              "format": "float"
+        },
+        "taxRate": {
+          "description": "Applied tax rate on amount",
+              "type": "number",
+              "format": "float"
+        },
+        "@type": {
+          "description": "Indicates the (class) type of the price",
+              "type": "string"
+        },
+        "@schemaLocation": {
+          "description": "Link to the schema describing this REST resource.",
+              "type": "string"
+        }
+      }
+      
+    },
+
+    "TimePeriod": {
+      "description": "A time period described through 2 dates",
+
+      
+      "type": "object",
+      "properties": {
+        "startDateTime": {
+          "description": "",
+              "type": "string",
+              "format": "date-time"
+        },
+        "endDateTime": {
+          "description": "",
+              "type": "string",
+              "format": "date-time"
+        }
+      }
+      
+    },
+
+    "ProductRef": {
+      "description": "A product reference to be used for relationship target",
+
+      
+      "required": [
+          
+            "id"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier of the product",
+              "type": "string"
+        },
+        "href": {
+          "description": "Reference of the product",
+              "type": "string"
+        }
+      }
+      
+    },
+
+    "Place": {
+      "description": "Place defines the places where the products is installed or has a footprint (a place could be used for geo fencing",
+
+      
+      "required": [
+          
+            "role"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier of the place",
+              "type": "string"
+        },
+        "href": {
+          "description": "Reference of the place",
+              "type": "string"
+        },
+        "name": {
+          "description": "A user-friendly name for the place",
+              "type": "string"
+        },
+        "role": {
+          "description": "Role of the place (for instance: 'installation site', 'A-extremity site', 'Supervised Perimeter' etc...)",
+              "type": "string"
+        },
+        "@referredType": {
+          "description": "Indicate the type of Place class (example: 'geographicAddress')",
+              "type": "string"
+        },
+        "@schemaLocation": {
+          "description": "A link to the schema describing this REST resource",
+              "type": "string"
+        }
+      }
+      
+    },
+
+    "PriceAlteration": {
+      "description": "Is an amount, usually of money, that modifies the price charged for a Product",
+
+      
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Link to the schema describing this REST resource.",
+              "type": "string"
+        },
+        "name": {
+          "description": "A short descriptive name such as \"Monthly discount\"",
+              "type": "string"
+        },
+        "description": {
+          "description": "A narrative that explains in detail the semantics of this ProdPriceAlteration",
+              "type": "string"
+        },
+        "priceType": {
+          "description": "A category that describes the price such as recurring, one shot and so forth",
+              "type": "string"
+        },
+        "unitOfMeasure": {
+          "description": "Could be minutes, GB...",
+              "type": "string"
+        },
+        "recurringChargePeriod": {
+          "description": "Could be month, week...",
+              "type": "string"
+        },
+        "validFor": {
+          
+              "$ref": "#/definitions/TimePeriod"
+        },
+        "priority": {
+          "description": "Priority level for applying this alteration among all the defined alterations",
+              "type": "integer",
+              "format": "int32"
+        },
+        "@type": {
+          "description": "Indicated the class (type) of the price alteration.",
+              "type": "string"
+        },
+        "@schemaLocation": {
+          "description": "A link to the schema describing the price alteration.",
+              "type": "string"
+        },
+        "price": {
+          
+              "$ref": "#/definitions/Price"
+        }
+      }
+      
+    },
+
+    "Hub": {
+      "description": "Sets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics",
+
+      
+        "discriminator": "id",
+      
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier of the hub",
+              "type": "string"
+        },
+        "callback": {
+          "description": "The callback address to be registered",
+              "type": "string"
+        },
+        "query": {
+          "description": "Additional Data to be passed",
+              "type": "string"
+        }
+      }
+      
+    },
+
+    "HubInput": {
+      "description": "Sets the communication endpoint address the service instance must use to deliver information about its health state, execution state, failures and metrics",
+
+      
+      "type": "object",
+      "properties": {
+        "callback": {
+          "description": "The callback address to be registered",
+              "type": "string"
+        },
+        "query": {
+          "description": "Additional Data to be passed",
+              "type": "string"
+        }
+      }
+      
+    },
+
+    "ProductOrderRef": {
+      "description": "The product order(s) related to this product inventory",
+
+      
+      "required": [
+          
+            "orderItemId"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Unique identifier of product order",
+              "type": "string"
+        },
+        "href": {
+          "description": "Hypertext Reference of the product order",
+              "type": "string"
+        },
+        "@referredType": {
+          "description": "Indicate the class (type) of productOrder",
+              "type": "string"
+        },
+        "orderItemId": {
+          "description": "Identifier of the order item where the product was managed",
+              "type": "string"
+        },
+        "orderItemAction": {
+          "description": "Action of the order item for this product",
+              "type": "string"
+        }
+      }
+      
+    },
+
+    "ProductTerm": {
+      "description": "This represent a commitment with a duration",
+
+      
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of the commitment term",
+              "type": "string"
+        },
+        "description": {
+          "description": "Description of the commitment term",
+              "type": "string"
+        },
+        "duration": {
+          
+              "$ref": "#/definitions/Quantity"
+        },
+        "validFor": {
+          
+              "$ref": "#/definitions/TimePeriod"
+        },
+        "@type": {
+          "description": "Indicate the class (type) of the product term",
+              "type": "string"
+        }
+      }
+      
+    },
+
+    "Money": {
+      "description": "A base / value business entity used to represent money.",
+
+      
+      "required": [
+          
+            "value",
+            "unit"
+      ],
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "A positive floating point number",
+              "type": "string"
+        },
+        "unit": {
+          "description": "Currency (ISO4217 norm uses 3 letters to define the currency).",
+              "type": "string"
+        }
+      }
+      
+    },
+
+    "TargetResourceSchema": {
+      "description": "Target to the schema describing the product spec resource",
+
+      
+      "required": [
+          
+            "@type"
+      ],
+      "type": "object",
+      "properties": {
+        "@type": {
+          "description": "Indicated the type of the productSpec described there - for example an E-Line Spec, a CPE spec",
+              "type": "string"
+        },
+        "@schemaLocation": {
+          "description": "A link to the schema describing the product spec",
+              "type": "string"
+        }
+      }
+      
+    },
+
+    "Quantity": {
+      "description": "Description of a quantity like for the Duration attribute",
+
+      
+      "required": [
+          
+            "amount",
+            "units"
+      ],
+      "type": "object",
+      "properties": {
+        "amount": {
+          "description": "A value for the quantity",
+              "type": "number",
+              "format": "float"
+        },
+        "units": {
+          "description": "A unit associated with the quantity (for example months)",
+              "type": "string"
+        }
+      }
+      
+    }
+  }
+}
+	
