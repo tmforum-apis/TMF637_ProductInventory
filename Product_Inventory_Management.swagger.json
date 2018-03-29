@@ -3,12 +3,8 @@
   "swagger": "2.0",
   "info": {
     "description": "##TMF API Reference : TMF 637 - Product Inventory Management\n\n##Release : 18.0 - May 2018\n\nThe Product Inventory Management API provides standardized mechanism for product inventory management such as creation, update and retrieval of the representation of a product in the inventory. It also allows the notification of events related to product lifecycle\n\n###Product resource\nA product offering procured by a customer or other interested party playing a party role. A product is realized as one or more service(s) and / or resource(s).\n\n###Product Inventory API performs the following operations on product :\n- Retrieval of a product or a collection of products depending on filter criteria\n- Partial update of a product (including updating rules and for administration purpose)\n- Creation of a product (including default values and creation rules and for administration purpose)\n- Deletion of a product (for administration purposes)\n- Notification of events on product.\n\nCopyright © TM Forum 2017. All Rights Reserved",
-    "version": "3.0.0_inProgress",
-    "title": "API ProductInventory",
-    "x-logo": {
-      "url": "/redoc/logo.png",
-      "backgroundColor": "#FFFFFF"
-    }
+    "version": "3.0.0",
+    "title": "API ProductInventory"
   },
   
   "host": "serverRoot",
