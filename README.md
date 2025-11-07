@@ -1,12 +1,8 @@
-# TMF637_ProductInventory
-TM Forum Open APIs (Apache 2.0) Product Inventory Management API
+# TMF637 ProductInventory
 
-A standardized mechanism for product inventory management such as creation,
-partial or full update and retrieval of the representation of a product in
-the inventory. It also allows the notification of events related to the
-product lifecycle
+TM Forum Open API (Apache 2.0) ProductInventory API.
 
-To access this API; (the Specification, Postman Collection, Swagger file, Swagger-UI, 
-Reference Implementation, Conformance Profile, and CTK) go to the Open API table at:
+partial or full update and retrieval of the representation of a product in the inventory. It also allows the notification of events related to the product lifecycle
 
-https://projects.tmforum.org/wiki/display/API/Open+API+Table
+The resources in this repository are a mirror of the official versions, published here for your convenience.
+The authoritative source of information for this API is: https://www.tmforum.org/oda/open-apis/directory/
